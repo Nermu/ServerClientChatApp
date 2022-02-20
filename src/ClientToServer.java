@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class ClientToServer {
-    public static void main(String[] args){
+    ClientToServer(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Sending a Request....");
         try {
@@ -33,4 +33,5 @@ public class ClientToServer {
             System.out.println("Not found data for the socket..." + e);
         }
     }
+
 }

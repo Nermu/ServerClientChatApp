@@ -6,12 +6,13 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class ServerFromClient {
-    public static void main(String[] args){
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter Port Number...");
-        int port = scan.nextInt();
+
+        //Scanner scan = new Scanner(System.in);
+        public ServerFromClient(){
+        //System.out.println("Enter Port Number...");
+        //int port = scan.nextInt();
         try {
-            ServerSocket serverSocket = new ServerSocket(port);
+            ServerSocket serverSocket = new ServerSocket(8080);
             System.out.println("Waiting for Request...");
 
             Socket socket = serverSocket.accept();
@@ -30,6 +31,5 @@ public class ServerFromClient {
         } catch (IOException e) {
             System.out.println("Not found data for the socket.." + e);
         }
-
-    }
+        }
 }
