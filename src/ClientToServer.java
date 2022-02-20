@@ -7,8 +7,8 @@ public class ClientToServer {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
         System.out.println("Sending a Request....");
-        int port = scan.nextInt();
         try {
+            int port = scan.nextInt();
             Socket socket = new Socket("localhost", port);
             System.out.println("Connected Successfully....");
 
@@ -23,7 +23,7 @@ public class ClientToServer {
                 if (str.contains("exit")){
                     System.exit(1);
                 }
-                System.out.println("Data Returned");
+                System.out.println("Data Returned that sent to server");
                 System.out.println(str);
             }
         }catch (UnknownHostException ue){

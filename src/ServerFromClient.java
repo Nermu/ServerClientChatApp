@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class ServerFromClient {
     public static void main(String[] args){
         Scanner scan = new Scanner(System.in);
+        System.out.println("Enter Port Number...");
         int port = scan.nextInt();
         try {
             ServerSocket serverSocket = new ServerSocket(port);
