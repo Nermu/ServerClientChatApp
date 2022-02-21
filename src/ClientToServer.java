@@ -3,8 +3,26 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
-public class ClientToServer {
-    ClientToServer(){
+public class ClientToServer implements Runnable{
+    private String hostName = "localhost";
+    private int portNumber;
+    private Socket socket = null;
+
+    ClientToServer(Socket client){
+        this.socket = client;
+        System.out.println("Sending a Request....");
+    }
+    ClientToServer(int portNumber, String hostName){
+        this.portNumber = portNumber;
+        this.hostName = hostName;
+    }
+
+    @Override
+    public void run() {
+        String data;
+        PrintWriter output = null;
+        BufferedReader input = null;
+        BufferedReader stdInput = null;
         Scanner scan = new Scanner(System.in);
         System.out.println("Sending a Request....");
         try {
@@ -32,6 +50,6 @@ public class ClientToServer {
         catch (IOException e) {
             System.out.println("Not found data for the socket..." + e);
         }
-    }
 
+    }
 }
