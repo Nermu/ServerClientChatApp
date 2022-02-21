@@ -19,10 +19,6 @@ public class ClientToServer implements Runnable{
 
     @Override
     public void run() {
-        String data;
-        PrintWriter output = null;
-        BufferedReader input = null;
-        BufferedReader stdInput = null;
         Scanner scan = new Scanner(System.in);
         System.out.println("Sending a Request....");
         try {
@@ -34,21 +30,20 @@ public class ClientToServer implements Runnable{
             PrintStream printStream = new PrintStream(socket.getOutputStream());
 
             while (true){
-                System.out.println("Input the Data....");
-                String str = bufferedReader.readLine();
-                printStream.println(str);
+                System.out.print("Client : ");
+                String data = bufferedReader.readLine();
+                printStream.println(data);
 
-                if (str.contains("exit")){
+                String msg = bufferedReader.readLine();
+                System.out.println("Message from server : " + msg);
+
+                if (data.contains("exit")){
                     System.exit(1);
                 }
-                System.out.println("Data Returned that sent to server");
-                System.out.println(str);
-            }
-        }catch (UnknownHostException ue){
-            System.out.println("Something Wrong with IP...!!!" + ue);
-        }
-        catch (IOException e) {
-            System.out.println("Not found data for the socket..." + e);
+
+                }
+        }catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
