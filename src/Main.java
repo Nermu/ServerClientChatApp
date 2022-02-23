@@ -19,21 +19,21 @@ public class Main {
 
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        do {
+        while (true){
             System.out.println("Please enter conn ");
             connect = bufferedReader.readLine();
-            if (connect.contains("conn")) {
+            if (connect.contains("conn")){
                 System.out.println("Please enter server hostName and its port number: ");
                 String serverHost = scan.next();
                 int serverPort = scan.nextInt();
-                System.out.println("conn " + serverHost + " " + serverPort);
-                server = new Server(serverHost, serverPort);
+                System.out.println("conn "  + serverHost + " " + serverPort);
+                server = new Server(serverHost , serverPort );
 
                 System.out.println("Please enter client hostName and its port number: ");
                 String clientHost = scan.next();
                 int clientPort = scan.nextInt();
                 System.out.println("conn " + clientHost + " " + clientPort);
-                Client client = new Client(clientHost, clientPort);
+                Client client = new Client(clientHost , clientPort);
 
                 Thread s = new Thread(server);
                 s.start();
@@ -42,9 +42,17 @@ public class Main {
                 c.start();
                 break;
             }
-        }while (true);
 
         }
 
+
+
+
+
+
+
+
+
     }
+}
 

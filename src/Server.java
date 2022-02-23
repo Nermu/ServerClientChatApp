@@ -54,7 +54,7 @@ public class Server implements Runnable {
                 String str = bufferedReader.readLine();
                 System.out.println("Message <" + str + ">");
                 if (str.equals("exit")) {
-                    break;
+                    continue;
                 }
             } catch (IOException ex) {
                 System.out.println("Couldn't read message");

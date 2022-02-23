@@ -44,14 +44,14 @@ public class Client implements Runnable {
         try {
             //not complete
             String user = scan.next();
-            System.out.println("User <" + user + "> : ");
+            System.out.println("User <" + user + "> :  ");
             while (true) {
                 String data = bufferedReader.readLine();
                 printStream.println(data);
                 if (data.contains("exit")) {
                     System.out.println("Please enter username");
                     String newUser = scan.next();
-                    System.out.println("User <" + newUser + "> : ");
+                    System.out.println("User <" + newUser + "> :  ");
 
                     continue;
                 }
