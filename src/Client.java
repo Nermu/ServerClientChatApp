@@ -3,33 +3,34 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Client implements Runnable {
+
     private String hostName;
     private int portNumber;
     private Socket socket = null;
     BufferedReader bufferedReader = null;
     PrintStream printStream;
+    Scanner scan = new Scanner(System.in);
 
-    Client(int portNumber, String hostName) {
-        this.portNumber = portNumber;
+    Client(String hostName, int portNumber) {
         this.hostName = hostName;
+        this.portNumber = portNumber;
     }
 
     @Override
     public void run() {
-
         connectServer();
         sentMsgToServer();
-
     }
 
-    public void connectServer(){
+    public void connectServer() {
         while (true) {
             try {
                 socket = new Socket(hostName, portNumber);
                 System.out.println("Connected Successfully....");
-
+                System.out.println("Please enter username : ");
                 bufferedReader = new BufferedReader(new InputStreamReader(System.in));
                 printStream = new PrintStream(socket.getOutputStream());
                 break;
@@ -39,16 +40,20 @@ public class Client implements Runnable {
         }
     }
 
-    public void sentMsgToServer(){
+    public void sentMsgToServer() {
         try {
+            //not complete
+            String user = scan.next();
+            System.out.println("User <" + user + "> : ");
             while (true) {
-                System.out.print("Client : ");
                 String data = bufferedReader.readLine();
                 printStream.println(data);
-
                 if (data.contains("exit")) {
-                    System.exit(0);
-                    break;
+                    System.out.println("Please enter username");
+                    String newUser = scan.next();
+                    System.out.println("User <" + newUser + "> : ");
+
+                    continue;
                 }
             }
         } catch (IOException e) {

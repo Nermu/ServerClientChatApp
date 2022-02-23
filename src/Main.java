@@ -1,22 +1,54 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
 
         Scanner scan = new Scanner(System.in);
-        System.out.println("enter server port number: ");
-        int serverPort = scan.nextInt();
-        Server server = new Server(serverPort);
+        String connect;
+        BufferedReader bufferedReader ;
 
-        System.out.println("enter client port number: ");
-        int clientPort = scan.nextInt();
-        Client client = new Client(clientPort, "localhost");
+        //to check singleton server
+        Server server = Server.getInstance("FOO");
+        System.out.println(server.value);
 
-        Thread s = new Thread(server);
-        s.start();
+        Server anotherServer = Server.getInstance("from another server");
+        System.out.println(anotherServer.value);
 
-        Thread c = new Thread(client);
-        c.start();
+        while (true){
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("Please enter conn ");
+            connect = bufferedReader.readLine();
+            if (connect.contains("conn")){
+                System.out.println("Please enter server hostName and its port number: ");
+                String serverHost = scan.next();
+                int serverPort = scan.nextInt();
+                System.out.println("conn "  + serverHost + " " + serverPort);
+                server = new Server(serverHost , serverPort );
+
+                System.out.println("Please enter client hostName and its port number: ");
+                String clientHost = scan.next();
+                int clientPort = scan.nextInt();
+                System.out.println("conn " + clientHost + " " + clientPort);
+                Client client = new Client(clientHost , clientPort);
+
+                Thread s = new Thread(server);
+                s.start();
+
+                Thread c = new Thread(client);
+                c.start();
+            }
+
+        }
+
+
+
+
+
+
+
 
 
     }

@@ -5,24 +5,40 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server implements Runnable {
-    private int portNumber;
+    public static Socket socket;
+    public static Server instanceServer;
+    public static int serverPort;
+    public static String serverIP;
+    public String value;
     BufferedReader bufferedReader = null;
 
-    Server(int portNumber) {
-        this.portNumber = portNumber;
+    public Server(String serverHost, int portNumber) {
+        serverIP = serverHost;
+        serverPort = portNumber;
+
+    }
+
+    private Server(String value) {
+        this.value = value;
+    }
+
+    public static Server getInstance(String value) {
+        if (instanceServer == null) {
+            instanceServer = new Server(value);
+        }
+        return instanceServer;
     }
 
     @Override
     public void run() {
         establishServer();
         readMsgClient();
-
     }
 
-    public void establishServer(){
+    public void establishServer() {
         try {
-            ServerSocket serverSocket = new ServerSocket(portNumber);
-            Socket socket = serverSocket.accept();
+            ServerSocket serverSocket = new ServerSocket(serverPort);
+            socket = serverSocket.accept();
             System.out.println("Request Accepted...");
 
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -32,11 +48,11 @@ public class Server implements Runnable {
         }
     }
 
-    public void readMsgClient(){
+    public void readMsgClient() {
         while (true) {
             try {
                 String str = bufferedReader.readLine();
-                System.out.println("Message from Client : " + str);
+                System.out.println("Message <" + str + ">");
                 if (str.equals("exit")) {
                     break;
                 }
@@ -47,7 +63,6 @@ public class Server implements Runnable {
 
         }
     }
-
 
 
 }
