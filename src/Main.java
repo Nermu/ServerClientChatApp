@@ -20,7 +20,7 @@ public class Main {
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
         while (true){
-            System.out.println("Please enter conn ");
+            System.out.println("Please enter \"conn\" ");
             connect = bufferedReader.readLine();
             if (connect.contains("conn")){
                 System.out.println("Please enter server hostName and its port number: ");

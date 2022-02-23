@@ -7,15 +7,14 @@ import java.net.Socket;
 public class Server implements Runnable {
     public static Socket socket;
     public static Server instanceServer;
-    public static int serverPort;
     public static String serverIP;
+    public static int serverPort;
     public String value;
     BufferedReader bufferedReader = null;
 
     public Server(String serverHost, int portNumber) {
         serverIP = serverHost;
         serverPort = portNumber;
-
     }
 
     private Server(String value) {
@@ -37,12 +36,11 @@ public class Server implements Runnable {
 
     public void establishServer() {
         try {
-                ServerSocket serverSocket = new ServerSocket(serverPort);
-                socket = serverSocket.accept();
-                System.out.println("Request Accepted...");
+            ServerSocket serverSocket = new ServerSocket(serverPort);
+            socket = serverSocket.accept();
+            System.out.println("Request Accepted...");
 
-                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
             System.out.println("Could not listen on port");
             e.printStackTrace();
@@ -62,9 +60,6 @@ public class Server implements Runnable {
                 System.out.println("Couldn't read message");
                 ex.printStackTrace();
             }
-
         }
     }
-
-
 }
