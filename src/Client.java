@@ -42,7 +42,6 @@ public class Client implements Runnable {
 
     public void sentMsgToServer() {
         try {
-            //not complete
             String user = scan.next();
             System.out.println("User <" + user + "> :  ");
             while (true) {

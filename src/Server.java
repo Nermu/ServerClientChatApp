@@ -37,11 +37,12 @@ public class Server implements Runnable {
 
     public void establishServer() {
         try {
-            ServerSocket serverSocket = new ServerSocket(serverPort);
-            socket = serverSocket.accept();
-            System.out.println("Request Accepted...");
+                ServerSocket serverSocket = new ServerSocket(serverPort);
+                socket = serverSocket.accept();
+                System.out.println("Request Accepted...");
 
-            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
         } catch (IOException e) {
             System.out.println("Could not listen on port");
             e.printStackTrace();
@@ -54,6 +55,7 @@ public class Server implements Runnable {
                 String str = bufferedReader.readLine();
                 System.out.println("Message <" + str + ">");
                 if (str.equals("exit")) {
+                    establishServer();
                     continue;
                 }
             } catch (IOException ex) {
