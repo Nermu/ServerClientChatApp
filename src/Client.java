@@ -48,9 +48,11 @@ public class Client implements Runnable {
                 String data = bufferedReader.readLine();
                 printStream.println(data);
                 if (data.contains("exit")) {
-                    System.out.println("Please enter username");
+                    System.out.println("Please enter new username");
                     String newUser = scan.next();
                     System.out.println("User <" + newUser + "> :  ");
+                    data = bufferedReader.readLine();
+                    printStream.println(data);
 
                     continue;
                 }
