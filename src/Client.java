@@ -42,19 +42,24 @@ public class Client implements Runnable {
 
     public void sentMsgToServer() {
         try {
-            String user = scan.next();
-            System.out.println("User <" + user + "> :  ");
+            String user = bufferedReader.readLine();
+            System.out.print("User <" + user + "> :  ");
+            printStream.println(user);
             while (true) {
                 String data = bufferedReader.readLine();
                 printStream.println(data);
+
                 if (data.contains("exit")) {
                     System.out.println("Please enter new username");
                     String newUser = scan.next();
-                    System.out.println("User <" + newUser + "> :  ");
-                    data = bufferedReader.readLine();
-                    printStream.println(data);
+                    System.out.print("User <" + newUser + "> :  ");
+                    String newData = bufferedReader.readLine();
+                    printStream.println(newData);
 
                     continue;
+                }else if (data.contains("disconnect")){
+                    System.exit(0);
+                    break;
                 }
             }
         } catch (IOException e) {

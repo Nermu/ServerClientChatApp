@@ -6,9 +6,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        Scanner scan = new Scanner(System.in);
+
         String connect;
-        BufferedReader bufferedReader ;
 
         //to check singleton server
         Server server = Server.getInstance("FOO");
@@ -17,29 +16,42 @@ public class Main {
         Server anotherServer = Server.getInstance("from another server");
         System.out.println(anotherServer.value);
 
-        bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-
         while (true){
-            System.out.println("Please enter \"conn\" ");
-            connect = bufferedReader.readLine();
-            if (connect.contains("conn")){
-                System.out.println("Please enter server hostName and its port number: ");
-                String serverHost = scan.next();
-                int serverPort = scan.nextInt();
-                System.out.println("conn "  + serverHost + " " + serverPort);
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            String[] input = new String[3];
+            String serverHost;
+            int serverPort;
+            input = in.readLine().split(" ");
+            connect = input[0];
+            serverHost = input[1];
+            serverPort = Integer.parseInt(input[2]);
+
+            if (connect.contains("connect")){
+                System.out.println("connect "  + serverHost + " " + serverPort);
                 server = new Server(serverHost , serverPort );
 
-                System.out.println("Please enter client hostName and its port number: ");
-                String clientHost = scan.next();
-                int clientPort = scan.nextInt();
-                System.out.println("conn " + clientHost + " " + clientPort);
-                Client client = new Client(clientHost , clientPort);
+                BufferedReader inClient = new BufferedReader(new InputStreamReader(System.in));
+                String[] inputClient = new String[3];
+                String clientHost;
+                int clientPort;
+                input = in.readLine().split(" ");
+                String connectClient = input[0];
+                if (connectClient.contains("connect")){
+                    clientHost = input[1];
+                    clientPort = Integer.parseInt(input[2]);
+                    System.out.println("connect " + clientHost + " " + clientPort);
+                    Client client = new Client(clientHost , clientPort);
+
+                    Thread c = new Thread(client);
+                    c.start();
+                }
+
+
 
                 Thread s = new Thread(server);
                 s.start();
 
-                Thread c = new Thread(client);
-                c.start();
+
                 break;
             }
 
