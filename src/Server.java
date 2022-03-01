@@ -28,7 +28,7 @@ public class Server implements Runnable {
 
     public static Server getInstance(String value) {
         if (instanceServer == null) {
-           instanceServer = new Server(value);
+            instanceServer = new Server(value);
         }
         return instanceServer;
     }
@@ -36,7 +36,7 @@ public class Server implements Runnable {
     @Override
     public void run() {
         establishServer();
-        readMsgClient();
+        readFromClient();
     }
 
     public void establishServer() {
@@ -54,15 +54,14 @@ public class Server implements Runnable {
         }
     }
 
-    public void readMsgClient() {
+    public void readFromClient() {
         while (true) {
             try {
-                String client = bufferedReader.readLine();
                 String message = bufferedReader.readLine();
-
-                System.out.println(" < " + client + " > : " + message );
+                System.out.println( message );
 
                 if (message.equals("exit")) {
+                    //System.out.println("Connection ended by server");
                     continue;
                 }
 
@@ -71,5 +70,9 @@ public class Server implements Runnable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void writeToClient() {
+
     }
 }

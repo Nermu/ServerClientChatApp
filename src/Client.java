@@ -11,8 +11,13 @@ public class Client implements Runnable {
     private int portNumber;
     private Socket socket = null;
     BufferedReader bufferedReader = null;
-    PrintStream printStream;
+    PrintStream printStream = null;
+
+    Socket newSocket = null;
+    PrintStream newPrintStream = null;
     Scanner scan = new Scanner(System.in);
+    String data = " ";
+    String input = " ";
 
     Client(String hostName, int portNumber) {
         this.hostName = hostName;
@@ -30,9 +35,13 @@ public class Client implements Runnable {
             try {
                 socket = new Socket(hostName, portNumber);
                 System.out.println("Connected Successfully....");
+
                 System.out.println("Please enter username : ");
-                bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-                printStream = new PrintStream(socket.getOutputStream());
+
+                if (input.contains("exit")){
+                    newSocket = new Socket(hostName,portNumber);
+                    System.out.println("Connected Successfully....");
+                }
                 break;
             } catch (IOException e) {
                 System.out.println("Failed to connect, try again");
@@ -42,26 +51,39 @@ public class Client implements Runnable {
 
     public void sentMsgToServer() {
         try {
-            String user = bufferedReader.readLine();
-            System.out.print("User <" + user + "> :  ");
-            printStream.println(user);
+            bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            printStream = new PrintStream(socket.getOutputStream());
+
+            String user = scan.next();
             while (true) {
-                String data = bufferedReader.readLine();
-                printStream.println(data);
 
-                if (data.contains("exit")) {
-                    System.out.println("Please enter new username");
-                    String newUser = scan.next();
-                    System.out.print("User <" + newUser + "> :  ");
-                    String newData = bufferedReader.readLine();
-                    printStream.println(newData);
+                System.out.print("User <" + user + "> : ");
 
-                    continue;
-                }else if (data.contains("disconnect")){
-                    System.exit(0);
-                    break;
-                }
+                data = bufferedReader.readLine();
+                printStream.println("\nUser <" + user + "> : " + data);
+
+
+
+                    if (data.contains("exit")) {
+                        System.out.println("Please enter new username");
+                        printStream = new PrintStream(newSocket.getOutputStream());
+                        String newUser = scan.next();
+                        while (true){
+                            System.out.print("User <" + newUser + "> :  ");
+                            String newData = bufferedReader.readLine();
+                            newPrintStream.print( "\n<" + newUser + "> : " + newData);
+
+                        }
+
+
+                    }else if (data.contains("bye")){
+                        System.out.println("Connection ended by client");
+                    }
+
+
             }
+                //System.out.print("User <" + user + "> :  ");
+
         } catch (IOException e) {
             System.out.println("Failed to sent message");
             e.printStackTrace();
