@@ -40,11 +40,16 @@ public class Main {
                     clientPort = Integer.parseInt(input[2]);
                     System.out.println("connect " + clientHost + " " + clientPort);
                     Client client = new Client(clientHost , clientPort);
-
                     Thread c = new Thread(client);
                     c.start();
 
-
+                }else if (connectClient.contains("exit")){
+                    clientHost = input[1];
+                    clientPort = Integer.parseInt(input[2]);
+                    System.out.println("connect " + clientHost + " " + clientPort);
+                    Client newClient = new Client(clientHost , clientPort);
+                    Thread d = new Thread(newClient);
+                    d.start();
                 }
 
 

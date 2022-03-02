@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Server implements Runnable {
     public static Socket socket;
@@ -15,7 +14,6 @@ public class Server implements Runnable {
     BufferedReader bufferedReader = null;
     BufferedReader input;
     PrintStream printStream;
-    Scanner scan = new Scanner(System.in);
 
     public Server(String serverHost, int portNumber) {
         serverIP = serverHost;
@@ -44,7 +42,6 @@ public class Server implements Runnable {
             ServerSocket serverSocket = new ServerSocket(serverPort);
             socket = serverSocket.accept();
             System.out.println("Request Accepted...");
-
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             input = new BufferedReader(new InputStreamReader(System.in));
             printStream = new PrintStream(socket.getOutputStream());
@@ -58,13 +55,7 @@ public class Server implements Runnable {
         while (true) {
             try {
                 String message = bufferedReader.readLine();
-                System.out.println( message );
-
-                if (message.equals("exit")) {
-                    //System.out.println("Connection ended by server");
-                    continue;
-                }
-
+                System.out.println(message);
             } catch (IOException ex) {
                 System.out.println("Couldn't read message");
                 ex.printStackTrace();
@@ -72,7 +63,4 @@ public class Server implements Runnable {
         }
     }
 
-    public void writeToClient() {
-
-    }
 }
