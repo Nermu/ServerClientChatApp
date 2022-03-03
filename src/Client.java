@@ -52,17 +52,20 @@ public class Client implements Runnable {
             String user = scan.next();
             while (true) {
 
-                System.out.print("User <" + user + "> : ");
+                System.out.print("User <[" + user + "]> : ");
                 data = bufferedReader.readLine();
-                printStream.println("\nUser <" + user + "> : " + data );
+                printStream.println("\nMessage<[" + data + "]>");
+                printStream.println("[" + user + "] : [" + data +"]");
 
                 if (data.contains("exit")) {
+                    System.out.println("\nUser <[" + user + "]> : has exit from chat");
                     System.out.println("Please enter new username");
                     String newUser = scan.next();
                     while (true) {
-                        System.out.print("User <" + newUser + "> :  ");
-                        newData = bufferedReader.readLine();
-                        printStream.print("\nUser<" + newUser + "> : " + newData + "\n");
+                        System.out.print("User <[" + newUser + "]> :  ");
+                        data = bufferedReader.readLine();
+                        printStream.println("Message<[ " + data + "]>");
+                        printStream.println("[" + newUser + "] : [" + data + "]");
                     }
                 }
             }
