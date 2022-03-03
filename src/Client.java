@@ -14,8 +14,6 @@ public class Client implements Runnable {
     PrintStream printStream = null;
 
     String newData = " ";
-    Socket newSocket = null;
-    PrintStream newPrintStream = null;
     Scanner scan = new Scanner(System.in);
     String data = " ";
 
@@ -38,16 +36,6 @@ public class Client implements Runnable {
                 System.out.println("Connected Successfully....");
 
                 System.out.println("Please enter username : ");
-                String input = scan.next();
-                while (input.contains("exit")){
-
-                    if (true) {
-                        newSocket = new Socket(hostName, portNumber);
-                        System.out.println("Connected Successfully....");
-                        printStream = new PrintStream(newSocket.getOutputStream());
-                    }
-                }
-
                 break;
 
             } catch (IOException e) {
@@ -74,7 +62,7 @@ public class Client implements Runnable {
                     while (true) {
                         System.out.print("User <" + newUser + "> :  ");
                         newData = bufferedReader.readLine();
-                        newPrintStream.print("\nUser<" + newUser + "> : " + newData + "\n");
+                        printStream.print("\nUser<" + newUser + "> : " + newData + "\n");
                     }
                 }
             }

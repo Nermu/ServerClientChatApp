@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-
         String connect;
 
         //to check singleton server
@@ -15,7 +14,7 @@ public class Main {
         Server anotherServer = Server.getInstance("from another server");
         System.out.println(anotherServer.value);
 
-        while (true){
+        while (true) {
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             String[] input = new String[3];
             String serverHost;
@@ -25,9 +24,9 @@ public class Main {
             serverHost = input[1];
             serverPort = Integer.parseInt(input[2]);
 
-            if (connect.contains("connect")){
-                System.out.println("connect "  + serverHost + " " + serverPort);
-                server = new Server(serverHost , serverPort );
+            if (connect.contains("connect")) {
+                System.out.println("connect " + serverHost + " " + serverPort);
+                server = new Server(serverHost, serverPort);
 
                 BufferedReader inClient = new BufferedReader(new InputStreamReader(System.in));
                 String[] inputClient = new String[3];
@@ -35,40 +34,24 @@ public class Main {
                 int clientPort;
                 input = in.readLine().split(" ");
                 String connectClient = input[0];
-                if (connectClient.contains("connect")){
+
+                if (connectClient.contains("connect")) {
                     clientHost = input[1];
                     clientPort = Integer.parseInt(input[2]);
                     System.out.println("connect " + clientHost + " " + clientPort);
-                    Client client = new Client(clientHost , clientPort);
+                    Client client = new Client(clientHost, clientPort);
                     Thread c = new Thread(client);
                     c.start();
 
-                }else if (connectClient.contains("exit")){
-                    clientHost = input[1];
-                    clientPort = Integer.parseInt(input[2]);
-                    System.out.println("connect " + clientHost + " " + clientPort);
-                    Client newClient = new Client(clientHost , clientPort);
-                    Thread d = new Thread(newClient);
-                    d.start();
                 }
-
-
 
                 Thread s = new Thread(server);
                 s.start();
-
 
                 break;
             }
 
         }
-
-
-
-
-
-
-
 
 
     }
